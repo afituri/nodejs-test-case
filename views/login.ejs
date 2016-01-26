@@ -1,19 +1,25 @@
-<form action="/authenticate" method="POST">
-    <h1>Login to test page</h1>
-    <label for="name">Name: </label>
-    <input type="text" name="name" id="name">
-    <br>
-    <label for="password">Password: </label>
-    <input type="password" name="password" id="password">
-    <input type="submit" value="Login">
-</form>
 
-<form action="/register" method="POST">
-    <h1>Register to test page</h1>
-    <label for="name">Name: </label>
-    <input type="text" name="name" id="name">
-    <br>
-    <label for="password">Password: </label>
-    <input type="password" name="password" id="password">
-    <input type="submit" value="Register">
-</form>
+<div class="row marketing">
+    <div class="col-lg-6">
+        <form class= "form-signin" action="/authenticate" method="POST">
+            <h2>Login to test page</h1>
+            <label for="name">Name: </label>
+            <input type="text" name="name" id="name" class="form-control">
+            <br>
+            <label for="password">Password: </label>
+            <input type="password" name="password" id="password" class="form-control" >
+            <input class="btn btn-lg btn-primary btn-block" type="submit" value="Login">
+        </form>
+    </div>
+
+    <div class="col-lg-6">
+        <form class= "form-signin" action="/register" method="POST">
+            <h2>Register to test page</h1>
+            <label for="name">Name: </label>
+            <input type="text" name="name" id="name" class="form-control">
+            <br>
+            <label for="password">Password: </label>
+            <input type="password" name="password" id="password" class="form-control">
+            <input class="btn btn-lg btn-primary btn-block" type="submit" value="Register">
+        </form>
+  </div>

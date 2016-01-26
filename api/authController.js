@@ -12,7 +12,9 @@ exports.index = function( req, res ) {
     }, function( err, user ) {
 
         if ( err ) {
-            throw err;
+            return res.status(400).send({
+                message: 'Something went wrong'
+            });
         }
 
         if ( !user ) {
@@ -24,9 +26,11 @@ exports.index = function( req, res ) {
         else if ( user ) {
             user.comparePassword( req.body.password, function( err, isMatch ) {
                 if ( err ) {
-                    throw err;
+                    return res.status( 200 ).json( {
+                        success: false,
+                        message: 'Something went wrong, please try again later'
+                    } );
                 }
-
                 if(!isMatch) {
                     return res.status( 401 ).json( {
                         success: false,
@@ -39,10 +43,16 @@ exports.index = function( req, res ) {
                 var token = jwt.sign( user, config.secret, {
                     expiresIn: 1440 // expires in 24 hours
                 } );
+                var exist = false;
+                if(user.customer){
+                    exist = true;
+                }
 
                 // return the information including token as JSON
                 res.render( 'transactions', {
                     token: token,
+                    user:user._id,
+                    exist: exist,
                     title: 'Transactions Page'
                 } );
 
@@ -60,7 +70,9 @@ exports.register = function( req, res ) {
     }, function( err, user ) {
 
         if ( err ) {
-            throw err;
+            return res.status(400).send({
+                message: 'Something went wrong'
+            });
         }
 
         if ( user ) {
@@ -76,10 +88,10 @@ exports.register = function( req, res ) {
             } );
             user.save( function( err ) {
                 if ( err ) {
-                    return res.status( 500 ).json( {
+                    return res.status(400).send({
                         success: false,
-                        message: 'Registration failed'
-                    } );
+                        message: 'Something went wrong'
+                    });
                 }
 
                 // if user is found and password is right
@@ -91,6 +103,8 @@ exports.register = function( req, res ) {
                 // return the information including token as JSON
                 res.render( 'transactions', {
                     token: token,
+                    user:user._id,
+                    exist:false,
                     title: 'Transactions Page'
                 } );
             } );

@@ -27,12 +27,14 @@ router.get( '/login', function( req, res ) {
 router.use( function( req, res, next ) {
 
     // check header or url parameters or post parameters for token
-    var token = req.body.token || req.query.token || req.headers[ 'x-access-token' ];
+    var token =  req.headers[ 'x-access-token' ];
+    //console.log(token);
     // decode token
     if ( token ) {
         // verifies secret and checks exp
         jwt.verify( token, config.secret, function( err, decoded ) {
             if ( err ) {
+                console.log(err);
                 return res.json( {
                     success: false,
                     message: 'Failed to authenticate token.'
@@ -59,5 +61,6 @@ router.use( function( req, res, next ) {
 
 
 router.post( '/createtransaction', transactionController.createTransaction );
+router.post( '/createexisting', transactionController.createExisting );
 
 module.exports = router;
