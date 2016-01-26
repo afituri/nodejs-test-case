@@ -9,17 +9,17 @@
 
     <form class= "form-signin" id = "transaction-form">
       <label for="amount">Amount:</label>
-      <input type="number" name="amount" id="amount" class="form-control" value = "10"><br>
+      <input type="number" name="amount" id="amount" class="form-control"><br>
       <label for="currency">Currency: </label>
-      <input type="text" name="currency" id="currency" class="form-control" value="usd"><br>
+      <input type="text" name="currency" id="currency" class="form-control" ><br>
       <label for="cardnumber">Card number </label>
-      <input type="text" name="customerid" id="cardnumber" class="card-number form-control" value="4268713191834024"><br>
+      <input type="text" name="customerid" id="cardnumber" class="card-number form-control" ><br>
       <label for="cvc">CVC: </label>
-      <input type="number" name="cvc" id="cvc" class="card-cvc form-control" value = "224"><br>
+      <input type="number" name="cvc" id="cvc" class="card-cvc form-control" ><br>
       <label for="card-expiry-month">Expired Month: </label>
-      <input type="number" name="card-expiry-month" id="card-expiry-month" class="card-expiry-month form-control" value= "06"><br>
+      <input type="number" name="card-expiry-month" id="card-expiry-month" class="card-expiry-month form-control" ><br>
       <label for="card-expiry-year">Expired Year: </label>
-      <input type="number" name="card-expiry-year" id="card-expiry-year" class="card-expiry-year form-control" value = "16"><br>
+      <input type="number" name="card-expiry-year" id="card-expiry-year" class="card-expiry-year form-control"><br>
       <input type="hidden" name="user" id="user" class="user form-control" value = "<%=user%>">
       <input type="button" class="submittransaction btn btn-md btn-primary btn-block" id="submittransaction" value="Submit">
       <%if (exist) { %>

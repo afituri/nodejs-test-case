@@ -40,21 +40,26 @@ $( document ).ready( function() {
                             token: token
                         }
                     } ).done( function( response ) {
-                        console.log(response);
-                        if ( response.message ) {
-                            if(!response.success){
+                        //successfult transaction
+                        custNotify(msgtype,msg,response.message,"bounceIn","bounceOut");
+                    } ).error( function(e) {
+                        //error in transaction
+                        var obj = JSON.parse(e.responseText);
+                        if ( obj ) {
+                            if(!obj.success){
                                 msgtype = "danger";
                                 msg="Error";
                             }
-                            custNotify(msgtype,msg,response.message,"bounceIn","bounceOut");
+                            custNotify(msgtype,msg,obj.message,"bounceIn","bounceOut");
                         }
-                    } );
+                    });
                 }
 
             } );
         }
 
     } );
+/***********add charge if user chose existing card**************/
     $( '#submitexist' ).click( function() {
         $.ajax( {
             url: '/createexisting',
@@ -68,13 +73,18 @@ $( document ).ready( function() {
                 user:$( '#user' ).val()
             }
         } ).done( function( response ) {
-            if ( response.message ) {
-                if(!response.success){
+            //successfult transaction
+            custNotify(msgtype,msg,response.message,"bounceIn","bounceOut");
+        } ).error( function(e) {
+            //error in transaction
+            var obj = JSON.parse(e.responseText);
+            if ( obj ) {
+                if(!obj.success){
                     msgtype = "danger";
                     msg="Error";
                 }
-                custNotify(msgtype,msg,response.message,"bounceIn","bounceOut");
+                custNotify(msgtype,msg,obj.message,"bounceIn","bounceOut");
             }
-        } );
+        });
     });
 } );

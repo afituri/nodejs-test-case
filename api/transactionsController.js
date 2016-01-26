@@ -12,7 +12,7 @@ exports.index = function( req, res, next ) {
         } );
         transaction.save( function( err, trans ) {
             if ( err ) {
-                return res.status(200).send({
+                return res.status(400).send({
                     success: false,
                     message: 'Something went wrong'
                 });
@@ -49,7 +49,7 @@ exports.createTransaction = function( req, res, next ) {
                 });
                 transaction.save( function( err ) {
                     if ( err ) {
-                        return res.status(200).send({
+                        return res.status(400).send({
                             success: false,
                             message: 'Something went wrong'
                         });
@@ -66,7 +66,7 @@ exports.createTransaction = function( req, res, next ) {
         });
             //handling errors
     }).catch(function(err){
-        return res.status(200).send({
+        return res.status(400).send({
             success: false,
             message: 'Something went wrong'
         });
@@ -78,7 +78,7 @@ exports.createExisting = function( req, res, next ) {
 
     User.findOne({_id : req.body.user}, function(err, user){
         if ( err ) {
-            return res.status(200).send({
+            return res.status(400).send({
                 success: false,
                 message: 'Something went wrong'
             });
@@ -99,7 +99,7 @@ exports.createExisting = function( req, res, next ) {
             });
             transaction.save( function( err ) {
                 if ( err ) {
-                    return res.status(200).send({
+                    return res.status(400).send({
                         success: false,
                         message: 'Something went wrong'
                     });
@@ -111,7 +111,7 @@ exports.createExisting = function( req, res, next ) {
                 }
             });
         }).catch(function(err){
-            return res.status( 200 ).send( {
+            return res.status( 400 ).send( {
                 success: false,
                 message: 'Something went wrong please try again later'
             } );
