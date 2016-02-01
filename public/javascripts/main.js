@@ -4,7 +4,7 @@
 /*global $form:true*/
 
 //set Public key for Stripe payments
-Stripe.setPublishableKey( 'pk_test_FJjIFfbTa22yBhAU3laZwpxe' );
+Stripe.setPublishableKey( 'pk_test_85VyP3zKQsCiE2XQZAGXHQhb' );
 var isSubmit = false;
 $( document ).ready( function() {
     var msgtype = "success", msg ="Success";
@@ -37,11 +37,19 @@ $( document ).ready( function() {
                         data: {
                             amount: $( '#amount' ).val(),
                             currency: $( '#currency' ).val(),
-                            token: token
+                            token: token,
+                            user : $('#user').val()
                         }
                     } ).done( function( response ) {
                         //successfult transaction
                         custNotify(msgtype,msg,response.message,"bounceIn","bounceOut");
+                        $('.old').hide();
+                        $('#submitexist').removeClass("hide");
+                        $('.submitexist').show();
+                        // if(!$('#submitexist').val()){
+                        //     $('<input type="button" class="submitexist btn btn-md btn-success btn-block" id="submitexist" value="Use Existing Card info">').insertAfter('#submittransaction');
+                        // }
+                        
                     } ).error( function(e) {
                         //error in transaction
                         var obj = JSON.parse(e.responseText);
@@ -60,7 +68,7 @@ $( document ).ready( function() {
 
     } );
 /***********add charge if user chose existing card**************/
-    $( '#submitexist' ).click( function() {
+    $( '.submitexist' ).on('click', function() {
         $.ajax( {
             url: '/createexisting',
             type: 'POST',

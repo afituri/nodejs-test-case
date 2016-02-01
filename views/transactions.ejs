@@ -5,26 +5,24 @@
   <div class="panel-heading">Transactions page</div>
   <div class="panel-body">
     <p>Your token:<span id="token"><%=token%></span></p>
-  
-
     <form class= "form-signin" id = "transaction-form">
+      <input type="hidden" name="user" id="user" class="user form-control" value = "<%=user%>">
       <label for="amount">Amount:</label>
       <input type="number" name="amount" id="amount" class="form-control"><br>
       <label for="currency">Currency: </label>
       <input type="text" name="currency" id="currency" class="form-control" ><br>
-      <label for="cardnumber">Card number </label>
-      <input type="text" name="customerid" id="cardnumber" class="card-number form-control" ><br>
-      <label for="cvc">CVC: </label>
-      <input type="number" name="cvc" id="cvc" class="card-cvc form-control" ><br>
-      <label for="card-expiry-month">Expired Month: </label>
-      <input type="number" name="card-expiry-month" id="card-expiry-month" class="card-expiry-month form-control" ><br>
-      <label for="card-expiry-year">Expired Year: </label>
-      <input type="number" name="card-expiry-year" id="card-expiry-year" class="card-expiry-year form-control"><br>
-      <input type="hidden" name="user" id="user" class="user form-control" value = "<%=user%>">
-      <input type="button" class="submittransaction btn btn-md btn-primary btn-block" id="submittransaction" value="Submit">
-      <%if (exist) { %>
-      <input type="button" class="submitexist btn btn-md btn-success btn-block" id="submitexist" value="Use Existing Card info">
+      <%if (!exist) { %>
+      <label class = "old" for="cardnumber">Card number </label>
+      <input type="text" name="customerid" id="cardnumber" class="card-number form-control old" ><br>
+      <label class= "old" for="cvc">CVC: </label>
+      <input type="number" name="cvc" id="cvc" class="card-cvc form-control old" ><br>
+      <label class= "old" for="card-expiry-month">Expired Month: </label>
+      <input type="number" name="card-expiry-month" id="card-expiry-month" class="card-expiry-month form-control old" ><br>
+      <label class= "old" for="card-expiry-year">Expired Year: </label>
+      <input type="number" name="card-expiry-year" id="card-expiry-year" class="card-expiry-year form-control old"><br>
+      <input type="button" class="submittransaction btn btn-md btn-primary btn-block old" id="submittransaction" value="Submit">
       <% } %>
+      <input type="button" class="<%if (!exist) { %> hide <% } %> submitexist btn btn-md btn-success btn-block" id="submitexist" value="Use Existing Card info">
       <p class="payment-errors"></p>
     </form>
    </div>

@@ -3,7 +3,7 @@
 var Transactions = require( '../models/transactions.model.js' );
 var User = require( '../models/user.model.js' );
 var config = require( '../config' );
-var Stripe = require( 'stripe' )( config.stripeApiKey );
+var Stripe = require( 'stripe' )( "sk_test_EoXxULId3KEYSLAlcDzOh9pX" );
 
 exports.index = function( req, res, next ) {
     if ( req.body ) {
@@ -24,20 +24,27 @@ exports.index = function( req, res, next ) {
 
 exports.createTransaction = function( req, res, next ) {
 
+    //creating a new customer
     Stripe.customers.create({
         source: req.body.token,
         description: 'payinguser@example.com'
     }).then(function(customer) {
+        //creating the first charge for this customer
         Stripe.charges.create({
             amount: req.body.amount, // amount in cents, again
             currency: req.body.currency,
             customer: customer.id
-        });
-    }).then(function(charge) {
-// YOUR CODE: Save the customer ID and other info in a database for later!
-        User.findOne({_id : req.body.user}, function(err, user){
-            user.customer= customer.id;
-            user.save(function(err,result){
+        }).then(function(charge){
+            
+            User.update({_id: req.body.user},{ customer : customer.id},function(err, result){
+                
+                if(err) {
+                    return res.status(400).send({
+                        success: false,
+                        message: 'Something went wrong'
+                    });
+                }
+                
                 var transaction = new Transactions( {
                     transactionId: charge.id,
                     amount: charge.amount,
@@ -61,11 +68,11 @@ exports.createTransaction = function( req, res, next ) {
                         } );
                     }
                 });
-                    // asynchronously called
+                        // asynchronously called
             });
         });
-            //handling errors
     }).catch(function(err){
+        console.log(err);
         return res.status(400).send({
             success: false,
             message: 'Something went wrong'
