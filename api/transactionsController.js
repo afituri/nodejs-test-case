@@ -3,7 +3,7 @@
 var Transactions = require( '../models/transactions.model.js' );
 var User = require( '../models/user.model.js' );
 var config = require( '../config' );
-var Stripe = require( 'stripe' )( "sk_test_EoXxULId3KEYSLAlcDzOh9pX" );
+var Stripe = require( 'stripe' )( config.secret);
 
 exports.index = function( req, res, next ) {
     if ( req.body ) {
