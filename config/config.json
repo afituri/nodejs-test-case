@@ -1,0 +1,5 @@
+{
+    "mongoURI": "mongodb://heroku_2w2rdwl3:icg1jl2ule43h0lp3lva0em8lm@ds051605.mongolab.com:51605/heroku_2w2rdwl3",
+    "secret": "sk_test_EoXxULId3KEYSLAlcDzOh9pX",
+    "stripeApiKey": "pk_test_85VyP3zKQsCiE2XQZAGXHQhb"
+}
